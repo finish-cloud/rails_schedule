@@ -12,6 +12,13 @@ class PostsController < ApplicationController
   end
 
   def create
+    @post = Post.new(params.require(:post).permit(:title, :content))
+    if @post.save
+      flash[:notice] = "スケジュールを新規登録しました"
+      redirect_to :posts
+    else
+      render "new"
+    end
   end
 
   def edit
